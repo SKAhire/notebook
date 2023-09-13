@@ -1,0 +1,19 @@
+{
+  "name": "notebook-mern",
+  "version": "1.0.0",
+  "description": "notebook made using js",
+  "main": "index.js",
+  "scripts": {
+    "server" : "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
