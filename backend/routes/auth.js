@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../models/Users');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const fetchuser = require('../middleware/fetchuser');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 
@@ -87,6 +88,17 @@ router.post('/login', [
         const authToken = jwt.sign(data, JWT_SECRET);
 
         res.json({ authToken })
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Internal Server Error');
+    }
+})
+// Get loggedin User Details using: POST "/api/auth/getuser". Login required
+router.post('/getuser', fetchuser, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findById(userId).select("-password");
+        res.send(user);
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Internal Server Error');
