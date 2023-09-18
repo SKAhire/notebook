@@ -26,8 +26,36 @@ const NoteState = (probs) => {
       ]
 
       const [notes, setNotes] = useState(notesInitial)
+
+      //add notes
+      const addNote = (title, description, tag)=>{
+        const note = {
+          "_id": "65044f7788c33f2e44df048a",
+          "userId": "6503f1e1d12be856b633b02c",
+          "title": title,
+          "description": description,
+          "tag": tag,
+          "date": "2023-09-15T12:35:03.451Z",
+          "__v": 0
+        }
+        setNotes(notes.concat(note))
+
+      }
+      
+      //delete note
+      const deleteNote = (id)=>{
+        console.log("Deleting the note with id" + id);
+        const delNote = notes.filter((note)=>{return note._id!==id})
+        setNotes(delNote)
+      }
+
+      //editNote
+      const editNote = (id) =>{
+
+      }
+
     return (
-        <NoteContext.Provider value={{notes, setNotes}}>
+        <NoteContext.Provider value={{notes, addNote, deleteNote, editNote}}>
             {probs.children}
         </NoteContext.Provider>
     )
