@@ -1,57 +1,42 @@
-import React, { useContext, useState } from "react";
-import NoteContext from "../context/notes/NoteContext";
+import React, {useContext, useState} from 'react'
+import NoteContext from "../context/notes/NoteContext"
 
-const AddNotes = () =>{
+const AddNote = () => {
     const context = useContext(NoteContext);
     const {addNote} = context;
 
-    const [note, setNote] = useState({title:"", description:"", tag:""})
+    const [note, setNote] = useState({title: "", description: "", tag: ""})
 
-    const handleChange = (e)=>{
-        setNote({...note, [e.target.name]: [e.target.value]})
-    }
-    
-    const handleAddNote =(e) =>{
+    const handleClick = (e)=>{
         e.preventDefault();
         addNote(note.title, note.description, note.tag);
         setNote({title: "", description: "", tag: ""})
     }
 
+    const onChange = (e)=>{
+        setNote({...note, [e.target.name]: e.target.value})
+    }
     return (
         <div className="container my-3">
             <h2>Add a Note</h2>
             <form className="my-3">
                 <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">
-                        Note Title
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="title"
-                        name="title"
-                        aria-describedby="emailHelp"
-                        onChange={handleChange}
-                        value={note.title} 
-                    />
+                    <label htmlFor="title" className="form-label">Title</label>
+                    <input type="text" className="form-control" id="title" name="title" aria-describedby="emailHelp" value={note.title} onChange={onChange} minLength={5} required /> 
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="exampleInputPassword1" className="form-label">
-                        Note Description
-                    </label>
-                    <textarea name="description" id="description" cols="30" rows="10" className="form-control"
-                    onChange={handleChange}
-                    value={note.description} ></textarea>
+                    <label htmlFor="description" className="form-label">Description</label>
+                    <input type="text" className="form-control" id="description" name="description" value={note.description} onChange={onChange} minLength={5} required />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="tag" className="form-label">Tag</label>
-                    <input type="text" className="form-control" id="tag" name="tag" onChange={handleChange} value={note.tag} />
+                    <input type="text" className="form-control" id="tag" name="tag" value={note.tag} onChange={onChange} minLength={5} required />
                 </div>
-                <button type="submit" className="btn btn-dark" onClick={handleAddNote}>
-                    Add Note
-                </button>
+               
+                <button disabled={note.title.length<5 || note.description.length<5} type="submit" className="btn btn-dark" onClick={handleClick}>Add Note</button>
             </form>
         </div>
     )
 }
-export default AddNotes
+
+export default AddNote

@@ -32,10 +32,11 @@ const NoteState = (props) => {
         'Content-Type': 'application/json',
         "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwM2YxZTFkMTJiZTg1NmI2MzNiMDJjIn0sImlhdCI6MTY5NDc2NTk2NH0.JmknR3DKcPG3wa7l2U9Kb4h4QZj-C4eUulqp3clqUwc"
       },
-      body: JSON.stringify({title, description, tag})
+      body: JSON.stringify({ title, description, tag })
     });
 
     const note = await response.json();
+    console.log(note)
     setNotes(notes.concat(note))
   }
 
