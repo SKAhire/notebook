@@ -1,19 +1,20 @@
 import React, { useContext, useState } from "react";
 import NoteContext from "../context/notes/NoteContext";
 
-export default function AddNotes() {
+const AddNotes = () =>{
     const context = useContext(NoteContext);
     const {addNote} = context;
 
-    const [notes, setNote] = useState({title:"", description:"", tag:"default"})
+    const [note, setNote] = useState({title:"", description:"", tag:""})
 
     const handleChange = (e)=>{
-        setNote({...notes, [e.target.name]: [e.target.value]})
+        setNote({...note, [e.target.name]: [e.target.value]})
     }
     
     const handleAddNote =(e) =>{
         e.preventDefault();
-        addNote(notes.title, notes.description, notes.tag);
+        addNote(note.title, note.description, note.tag);
+        setNote({title: "", description: "", tag: ""})
     }
 
     return (
@@ -29,19 +30,28 @@ export default function AddNotes() {
                         className="form-control"
                         id="title"
                         name="title"
-                        aria-describedby="emailHelp" onChange={handleChange}
+                        aria-describedby="emailHelp"
+                        onChange={handleChange}
+                        value={note.title} 
                     />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputPassword1" className="form-label">
                         Note Description
                     </label>
-                    <textarea name="description" id="description" cols="30" rows="10" className="form-control" onChange={handleChange}></textarea>
+                    <textarea name="description" id="description" cols="30" rows="10" className="form-control"
+                    onChange={handleChange}
+                    value={note.description} ></textarea>
                 </div>
-                <button type="submit" className="btn btn-primary" onClick={handleAddNote}>
+                <div className="mb-3">
+                    <label htmlFor="tag" className="form-label">Tag</label>
+                    <input type="text" className="form-control" id="tag" name="tag" onChange={handleChange} value={note.tag} />
+                </div>
+                <button type="submit" className="btn btn-dark" onClick={handleAddNote}>
                     Add Note
                 </button>
             </form>
         </div>
     )
 }
+export default AddNotes
