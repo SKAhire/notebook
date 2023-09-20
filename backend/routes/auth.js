@@ -15,16 +15,19 @@ router.post('/createuser', [
     body('email', "Enter a valid Email").isEmail(),
     body('password', 'Password must have a minimum of 5 characters').isLength({ min: 5 }),
 ], async (req, res) => {
+
+    let success = false;
+
     //if there are errors, return bad request and error
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ success, errors: errors.array() });
     }
     //to check it the user with same email exist in database
     try {
         let user = await User.findOne({ email: req.body.email });
         if (user) {
-            return res.status(400).json({ error: "This email is already been taken!" })
+            return res.status(400).json({ success, error: "This email is already been taken!" })
         }
         //encrypting and adding salt to the password
         const salt = await bcrypt.genSaltSync(10);
@@ -87,7 +90,8 @@ router.post('/login', [
         }
         const authToken = jwt.sign(data, JWT_SECRET);
 
-        res.json({ authToken })
+        success = true;
+        res.json({ success, authToken })
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Internal Server Error');

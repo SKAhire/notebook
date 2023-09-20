@@ -47,7 +47,7 @@ const Navbar = () => {
                                 </Link>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li>
-                                        <Link className="dropdown-item" to="/">
+                                        <Link className="dropdown-item" to="/ab">
                                             About
                                         </Link>
                                     </li>
@@ -68,17 +68,10 @@ const Navbar = () => {
                             </li>
                             
                         </ul>
-                        <form className="d-flex">
-                            <input
-                                className="form-control me-2"
-                                type="search"
-                                placeholder="Search"
-                                aria-label="Search"
-                            />
-                            <button className="btn btn-outline-success" type="submit">
-                                Search
-                            </button>
-                        </form>
+                        <span className="d-flex">
+                        <Link className="btn btn-success mx-2" to="/login" role="button">Login</Link>
+                        <Link className="btn btn-outline-success" to="/signup" role="button">Signup</Link>
+                        </span>
                     </div>
                 </div>
             </nav>

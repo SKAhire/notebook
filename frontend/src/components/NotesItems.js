@@ -7,7 +7,7 @@ const NotesItems = (props) => {
     const { note, updateNote } = props;
     return (
         <div className='col-md-3'>
-            <div className="card my-3 shadow-sm p-3 mb-3 bg-body-tertiary rounded">
+            <div className="card my-3 shadow-sm p-3 mb-3 bg-body-tertiary rounded" style={{minHeight: "150px"}}>
                 <div className="card-body">
                     <div className="d-flex justify-content-between">
                         <h5 className="card-title">{note.title} </h5>
